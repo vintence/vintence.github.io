@@ -16,7 +16,7 @@
 
         body {
 			background-image: url('sending-love.gif');
-			background-size: 50%;
+            background-size: 100%;
 			background-repeat: no-repeat;
             background-position: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,16 +31,17 @@
         }
 
         #wrapper {
-            padding-top: 50px;
+            padding: 50px 20px;
         }
 
         #valentine-message {
             font-size: 20px;
             margin-top: 20px;
             color: #333;
-			background-color: rgba(255, 255, 255, .5);
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			border-radius: 10px;
+            background-color: rgba(255, 255, 255, .5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 20px;
         }
 
         #input-box, #response-form {
@@ -51,7 +52,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+            margin-top: 20px;
         }
 
         #message, #response-input {
@@ -78,7 +79,7 @@
             background-color: #cc0000;
             color: #fff;
         }
-
+ 
         #submit-btn:hover, #respond-btn:hover {
             background-color: #990000;
         }
@@ -102,17 +103,30 @@
             background-color: #45a049;
             transform: scale(1.05);
         }
+
+        @media (min-width: 1024px) {
+            body {
+                background-size: 75%;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            body {
+                background-size: 50%;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="wrapper">
         <h1>Will You Be Kiens Valentine?</h1>
-		<div id="valentine-message">
-			<p>Kärra besökare</p>
-			<p>Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
-			<p>Sök inte vidare, du har kommit rätt 😉.</p>
+
+        <div id="valentine-message">
+            <p>Kärra besökare</p>
+            <p>Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
+            <p>Sök inte vidare, du har kommit rätt 😉.</p>
         </div>
-		
+        
         <div id="input-box">
             <label for="message">Pros n cons:</label>
             <label for="message">.</label>
@@ -135,7 +149,7 @@
         <button id="yes-btn" onclick="handleYesButtonClick()">Ja</button>
     </div>
 
-    <script>
+    <!-- <script>
         function submitMessage() {
             var message = document.getElementById('message').value;
             var confirmation = confirm("Are you sure you want to ask this message to your boyfriend?\n\n" + message);
@@ -155,7 +169,7 @@
 
         function handleNoButtonClick() {
             var noBtn = document.getElementById('no-btn');
-            var messages = ["Kom igen det kommer att bli kul", "Snälla? 🥺", "You're breaking my heart"];
+            var messages = ["Snälla? 🥺", "Kom igen det kommer att bli kul", "You're breaking my heart"];
             noButtonClickCount = (noButtonClickCount + 1) % messages.length;
             noBtn.innerText = messages[noButtonClickCount];
 
@@ -165,7 +179,7 @@
 
         function handleYesButtonClick() {
             alert("Du sa ja!! 😍");
-        }
+        } -->
     </script>
 
 </body>
