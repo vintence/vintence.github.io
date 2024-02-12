@@ -1,1 +1,164 @@
-"Hello World" 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Proposal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f7;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #cc0000;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #valentine-message {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #input-box, #response-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        #message, #response-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            resize: none;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #submit-btn, #respond-btn, #no-btn, #yes-btn {
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #submit-btn, #respond-btn {
+            background-color: #cc0000;
+            color: #fff;
+        }
+
+        #submit-btn:hover, #respond-btn:hover {
+            background-color: #990000;
+        }
+
+        #no-btn {
+            background-color: #f5a10f;
+            color: #fff;
+        }
+
+        #no-btn:hover {
+            background-color: #e78611;
+            transform: scale(1.05);
+        }
+
+        #yes-btn {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        #yes-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Will You Be My Valentine?</h1>
+    <p id="valentine-message">Kärra besökare</p>
+
+    <div id="input-box">
+        <label for="message">Du har säkerligen kommit hit för att du är iaf lite intresserad i mig.</label>
+		<label for="message">Sök inte vidare, du har kommit rätt 😉.</label>
+        <br>
+        
+    </div>
+	
+	<div id="input-box">
+		<label for="message">Här är snabba fakta om mig:</label>
+		<label for="message">Längd: 1.63m</label>
+		<label for="message">Ögonfärg: Mörkbrun</label>
+		<label for="message">Hänvisas till chatten för mer info</label>
+        <br>
+        
+    </div>
+	
+	<div id="input-box">
+		<label for="message">Pros n cons:</label>
+		<label for="message">.</label>
+		<label for="message">pro: Kan tillaga ditt husdjur om den blir jobbig.</label>
+		<label for="message">pro: Du kommer bli högst upp på min "att svara" listan.</label>
+		<label for="message">pro: Ställbart humornivå. Allt från "dry af" till "mörk humor".</label>
+		<label for="message">pro: Du kommer vara den snyggare på dejten.</label>
+		<label for="message">.</label>
+		<label for="message">cons: refererar detta till mina kompisar för dem vet mer</label>
+        <br>
+        
+    </div>
+
+    <div id="response-form">
+        <label for="response-input">Vill du bli min Valentine??</label>
+        <br>
+    </div>
+
+    <button id="no-btn" onclick="handleNoButtonClick()">Nej</button>
+    <button id="yes-btn" onclick="handleYesButtonClick()">Ja</button>
+
+    <script>
+        function submitMessage() {
+            var message = document.getElementById('message').value;
+            var confirmation = confirm("Are you sure you want to ask this message to your boyfriend?\n\n" + message);
+
+            if (confirmation) {
+                alert("Message sent! 🌹");
+                document.getElementById('response-form').style.display = 'block';
+            }
+        }
+
+        function respondToProposal() {
+            var response = document.getElementById('response-input').value;
+            alert("Your response: " + response);
+        }
+
+        var noButtonClickCount = 0;
+
+        function handleNoButtonClick() {
+            var noBtn = document.getElementById('no-btn');
+            var messages = ["Snälla? 🥺", "Kom igen det kommer att bli kul", "You're breaking my heart"];
+            noButtonClickCount = (noButtonClickCount + 1) % messages.length;
+            noBtn.innerText = messages[noButtonClickCount];
+
+            var yesBtn = document.getElementById('yes-btn');
+            yesBtn.style.width = (100 + noButtonClickCount * 10) + 'px';
+        }
+
+        function handleYesButtonClick() {
+            alert("Du sa ja!! 😍");
+        }
+    </script>
+
+</body>
+</html>
