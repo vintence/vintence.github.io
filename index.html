@@ -38,6 +38,9 @@
             font-size: 20px;
             margin-top: 20px;
             color: #333;
+			background-color: rgba(255, 255, 255, .5);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
         }
 
         #input-box, #response-form {
@@ -104,10 +107,12 @@
 <body>
     <div id="wrapper">
         <h1>Will You Be Kiens Valentine?</h1>
-        <p id="valentine-message">Kärra besökare</p>
-        <p id="valentine-message">Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
-        <p id="valentine-message">Sök inte vidare, du har kommit rätt 😉.</p>
-        
+		<div id="valentine-message">
+			<p>Kärra besökare</p>
+			<p>Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
+			<p>Sök inte vidare, du har kommit rätt 😉.</p>
+        </div>
+		
         <div id="input-box">
             <label for="message">Pros n cons:</label>
             <label for="message">.</label>
