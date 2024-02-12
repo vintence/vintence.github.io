@@ -5,17 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Day Proposal</title>
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,body {
+            height: 100%;
+        }
+
         body {
+			background-image: url('sending-love.gif');
+			background-size: 50%;
+			background-repeat: no-repeat;
+            background-position: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9f6f7;
             text-align: center;
-            margin: 50px;
         }
 
         h1 {
             color: #cc0000;
             font-size: 36px;
             margin-bottom: 20px;
+        }
+
+        #wrapper {
+            padding-top: 50px;
         }
 
         #valentine-message {
@@ -28,7 +44,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, .5);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -86,41 +102,33 @@
     </style>
 </head>
 <body>
-
-    <h1>Will You Be Kiens Valentine?</h1>
-    <p id="valentine-message">Kärra besökare</p>
-	<p id="valentine-message">Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
-	<p id="valentine-message">Sök inte vidare, du har kommit rätt 😉.</p>
-
-	<div id="input-box">
-		<label for="message">Här är snabba fakta om mig:</label>
-		<label for="message">Längd: 1.63m</label>
-		<label for="message">Ögonfärg: Mörkbrun</label>
-		<label for="message">Hänvisas till chatten för mer info</label>
-        <br>
+    <div id="wrapper">
+        <h1>Will You Be Kiens Valentine?</h1>
+        <p id="valentine-message">Kärra besökare</p>
+        <p id="valentine-message">Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
+        <p id="valentine-message">Sök inte vidare, du har kommit rätt 😉.</p>
         
+        <div id="input-box">
+            <label for="message">Pros n cons:</label>
+            <label for="message">.</label>
+            <label for="message">pro: Kan tillaga ditt husdjur om den blir jobbig.</label>
+            <label for="message">pro: Du kommer bli högst upp på min "att svara" listan.</label>
+            <label for="message">pro: Ställbart humornivå. Allt från "dry af" till "mörk humor".</label>
+            <label for="message">pro: Du kommer vara den snyggare på dejten.</label>
+            <label for="message">.</label>
+            <label for="message">cons: refererar detta till mina kompisar för dem vet mer</label>
+            <br>
+            
+        </div>
+    
+        <div id="response-form">
+            <label for="response-input">Vill du bli min Valentine??</label>
+            <br>
+        </div>
+    
+        <button id="no-btn" onclick="handleNoButtonClick()">Nej</button>
+        <button id="yes-btn" onclick="handleYesButtonClick()">Ja</button>
     </div>
-	
-	<div id="input-box">
-		<label for="message">Pros n cons:</label>
-		<label for="message">.</label>
-		<label for="message">pro: Kan tillaga ditt husdjur om den blir jobbig.</label>
-		<label for="message">pro: Du kommer bli högst upp på min "att svara" listan.</label>
-		<label for="message">pro: Ställbart humornivå. Allt från "dry af" till "mörk humor".</label>
-		<label for="message">pro: Du kommer vara den snyggare på dejten.</label>
-		<label for="message">.</label>
-		<label for="message">cons: refererar detta till mina kompisar för dem vet mer</label>
-        <br>
-        
-    </div>
-
-    <div id="response-form">
-        <label for="response-input">Vill du bli min Valentine??</label>
-        <br>
-    </div>
-
-    <button id="no-btn" onclick="handleNoButtonClick()">Nej</button>
-    <button id="yes-btn" onclick="handleYesButtonClick()">Ja</button>
 
     <script>
         function submitMessage() {
