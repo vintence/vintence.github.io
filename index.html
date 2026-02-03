@@ -1,179 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Proposal</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
+<!-- saved from url=(0029)https://latlong.mellifica.se/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	
+	<title>latlong.mellifica.se - Konvertering SWEREF99/RT90/WGS84</title>
+	<script type="text/javascript" async="" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/ga.js.ladda ned"></script><script src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/latlong.js.ladda ned" type="text/javascript"></script>
+	<script src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/map.js.ladda ned" type="text/javascript"></script>
+	<script src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/lat_lon_conv.js.ladda ned" type="text/javascript"></script>
+	<script src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/gausskruger.js.ladda ned" type="text/javascript"></script>
 
-        html,body {
-            height: 100%;
-        }
+	<script src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/OpenLayers.js.ladda ned" type="text/javascript"></script>
+	<script src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/OpenStreetMap.js.ladda ned"></script>
+	<script type="text/javascript" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/js">
+	</script>
 
-        body {
-			background-image: url('sending-love.gif');
-            background-size: 100%;
-			background-repeat: no-repeat;
-            background-position: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f6f7;
-            text-align: center;
-        }
+	<style type="text/css">
+			body {font: 76%/1.2 Verdana, Helvetica, sans-serif;}
+			h1 {font-size: 1.4em;}
+			a#ext-link {font-size: 0.8em;}
+			label {font-size: 1.0em;}
+			select, input, table, li {font-size: 1.0em;}
+			p {font-size: 0.9em;}
+			div#contact {font-size: 0.75em;}
+			legend {font-weight: bold;}
+	</style>
 
-        h1 {
-            color: #cc0000;
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
+	<script type="text/javascript">
 
-        #wrapper {
-            padding-top: 50px;
-        }
+	 var _gaq = _gaq || [];
+	 _gaq.push(['_setAccount', 'UA-17509455-1']);
+	 _gaq.push(['_trackPageview']);
 
-        #valentine-message {
-            font-size: 20px;
-            margin-top: 20px;
-            color: #333;
-        }
+	 (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	 })();
 
-        #input-box, #response-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: rgba(255, 255, 255, .5);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
+	</script>
 
-        #message, #response-input {
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-            resize: none;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+<link rel="stylesheet" type="text/css" href="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/style.css"><script type="text/javascript" charset="UTF-8" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/common.js.ladda ned"></script><script type="text/javascript" charset="UTF-8" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/util.js.ladda ned"></script><script type="text/javascript" charset="UTF-8" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/map(1).js.ladda ned"></script></head>
+<body onload="latlong_init();">
+<div id="boundary" style="width:500px;">
+	<h1 align="center">latlong.mellifica.se</h1>
+	
+	<div align="right">
 
-        #submit-btn, #respond-btn, #no-btn, #yes-btn {
-            font-size: 18px;
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
+		<a id="ext-link" type="button" href="https://pap.as/sweref/" target="_blank">tabellkonvertering</a>
 
-        #submit-btn, #respond-btn {
-            background-color: #cc0000;
-            color: #fff;
-        }
+		<input type="button" id="info_button" value="info" onclick="toggle_info();">
+	</div>
+	
+	<div id="wgs84">
+	<fieldset><legend>SWEREF 99 (~WGS 84)</legend>
+	<table align="center">
+		<tbody><tr>
+			<td></td>
+			<td><center>Latitud</center></td>
+			<td><center>Longitud</center></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Grader:</td>
+			<td><input type="text" name="" id="lat_dd" maxlength="" size="" onkeyup="keyup_lat_dd(event)" onblur="blur_lat(event);" value=""></td>
+			<td><input type="text" name="" id="long_dd" maxlength="" size="" onkeyup="keyup_long_dd(event);" onblur="blur_long(event);" value=""></td>
+		</tr>
+		<tr>
+			<td>Grad/min:</td>
+			<td><input type="text" name="" id="lat_dm" maxlength="" size="" onkeyup="keyup_lat_dm(event)" onblur="blur_lat(event);" value=""></td>
+			<td><input type="text" name="" id="long_dm" maxlength="" size="" onkeyup="keyup_long_dm(event)" onblur="blur_long(event);" value=""></td>
+		</tr>
+		<tr>
+			<td>Grad/min/sek:</td>
+			<td><input type="text" name="" id="lat_dms" maxlength="" size="" onkeyup="keyup_lat_dms(event)" onblur="blur_lat(event);" value=""></td>
+			<td><input type="text" name="" id="long_dms" maxlength="" size="" onkeyup="keyup_long_dms(event)" onblur="blur_long(event);" value=""></td>
+		</tr>
+	</tbody></table>
+	
+	<div id="wgs84_info" style="display: none;" align="left">
+	<p>Mata in latitud/longitud i n�got av f�lten ovan. De flesta
+	format ska accepteras, exempelvis latitud: 58 52 30.0, longitud: 11 8
+	45.0 i f�lten f�r Grad/min/sek. �vriga f�lt p� sidan uppdateras
+	automatiskt.</p>
+	<p>SWEREF 99 och WGS 84 �r tv� olika referenssystem men likheterna
+	�r stora och avvikelsen mellan systemen ligger p� decimeterniv�.
+	GPS-koordinater anges ofta i WGS 84 medan differentiell GPS-m�tning fr�n
+	SWEPOS �r relaterad till SWEREF 99.</p>
+	<p>F�r konvertering enbart mellan grad, grad/min och grad/min/sek
+	beh�ver man inte ta h�nsyn till referenssystem. Fungerar allts� �ven f�r
+	astronomiskt bruk med Decl. och R.A. �ven om R.A. �r timmar och inte
+	grader.</p>
+	</div>
+	
+	</fieldset>
+	</div>
+	&nbsp;
+	<div id="rt90">
+	<fieldset><legend>RT 90</legend>
+	<table align="center">
+		<tbody><tr>
+			<td colspan="4" align="left"><label for="proj_rt90">Kartprojektion:
+			</label> <select id="proj_rt90" onchange="select_proj_rt90(event)" onkeyup="select_proj_rt90(event)">
+				<option value="rt90_7.5_gon_v">RT90 7.5 gon V 0:-15</option>
+				<option value="rt90_5.0_gon_v">RT90 5 gon V 0:-15</option>
+				<option value="rt90_2.5_gon_v" selected="selected">RT90 2.5
+				gon V 0:-15 (Nationell)</option>
+				<option value="rt90_0.0_gon_v">RT90 0 gon V 0:-15</option>
+				<option value="rt90_2.5_gon_o">RT90 2.5 gon O 0:-15</option>
+				<option value="rt90_5.0_gon_o">RT90 5 gon O 0:-15</option>
+				<!-- <option value="test_case">Test</option> -->
+			</select></td>
+		</tr>
+		<tr>
+			<td>X:</td>
+			<td><input type="text" name="" id="x_rt90" maxlength="" size="" onkeyup="keyup_rt90(event)" onblur="blur_rt90(event)" value=""></td>
+			<td>Y:</td>
+			<td><input type="text" name="" id="y_rt90" maxlength="" size="" onkeyup="keyup_rt90(event)" onblur="blur_rt90(event)" value=""></td>
+		</tr>
+	</tbody></table>
+	
+	<div id="rt90_info" style="display: none;" align="left">
+	<p>V�lj projektion och mata in X och Y. �vriga f�lt p� sidan
+	uppdateras automatiskt. Heltalsdelen av X och Y ska vara 7 siffror l�ng
+	och enheten �r meter.</p>
+	<p>Projektionen "RT90 2.5 gon V 0:-15" (uttal:
+	rt-90-tv�-och-en-halv-gon-v�st) anv�ndes tidigare f�r allm�nna svenska kartor.
+	�vriga projektioner anv�ndes f�r lokala kartor. I nedanst�ende kartbild
+	g�r det att aktivera ett kartskikt som visar l�mplig zon f�r
+	respektive kartprojektion.</p>
+	<p>RT 90 och SWEREF 99 �r tv� olika referenssystem d�r RT 90
+	anv�nder ellipsoiden Bessel 1841 medan SWEREF 99 anv�nder ellipsoiden
+	GRS 80. Transformationen mellan RT 90 och SWEREF 99 sker med Lantm�teriets 
+	direktprojektionssamband vilket �r deras officiella transformeringsmetod. </p>
+	</div>
+	
+	</fieldset>
+	</div>
+	&nbsp;
+	<div id="sweref99">
+	<fieldset><legend>SWEREF 99 TM, SWEREF 99 dd mm</legend>
+	<table align="center">
+		<tbody><tr>
+			<td colspan="4" align="left"><label for="proj_sweref99">Kartprojektion:
+			</label> <select id="proj_sweref99" onchange="select_proj_sweref99(event)" onkeyup="select_proj_sweref99(event)">
+				<option value="sweref_99_tm" selected="selected">SWEREF 99 TM</option>
+				<option value="sweref_99_1200">SWEREF 99 12 00</option>
+				<option value="sweref_99_1330">SWEREF 99 13 30</option>
+				<option value="sweref_99_1500">SWEREF 99 15 00</option>
+				<option value="sweref_99_1630">SWEREF 99 16 30</option>
+				<option value="sweref_99_1800">SWEREF 99 18 00</option>
+				<option value="sweref_99_1415">SWEREF 99 14 15</option>
+				<option value="sweref_99_1545">SWEREF 99 15 45</option>
+				<option value="sweref_99_1715">SWEREF 99 17 15</option>
+				<option value="sweref_99_1845">SWEREF 99 18 45</option>
+				<option value="sweref_99_2015">SWEREF 99 20 15</option>
+				<option value="sweref_99_2145">SWEREF 99 21 45</option>
+				<option value="sweref_99_2315">SWEREF 99 23 15</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>N:</td>
+			<td><input type="text" name="" id="n_sweref99" maxlength="" size="" onkeyup="keyup_sweref99(event)" onblur="blur_sweref99(event)" value=""></td>
+			<td>E:</td>
+			<td><input type="text" name="" id="e_sweref99" maxlength="" size="" onkeyup="keyup_sweref99(event)" onblur="blur_sweref99(event)" value=""></td>
+		</tr>
+	</tbody></table>
+	
+	<div id="sweref99_info" style="display: none;" align="left">
+	<p>V�lj projektion och mata in N och E. �vriga f�lt p� sidan
+	uppdateras automatiskt. Heltalsdelen av N ska vara 7 siffror l�ng och E
+	ska vara 6 siffror. Enheten �r meter.</p>
+	<p>Projektionerna f�r SWEREF 99 har ersatt RT 90 f�r svenska
+	kartor. Projektionen "SWEREF 99 TM" anv�nds f�r allm�nna
+	svenska kartor. �vriga projektioner anv�nds f�r lokala kartor. I
+	nedanst�ende kartbild g�r det att aktivera ett kartskikt som visar
+	l�mplig zon f�r respektive kartprojektion.</p>
+	</div>
+	
+	</fieldset>
+	</div>
+	&nbsp;
+	<div>
+	<fieldset><legend>Karta</legend>
+	<div id="map" style="height:370px;" class="olMap"><div id="OpenLayers_Map_2_OpenLayers_ViewPort" class="olMapViewport olControlMousePositionActive" style="position: relative; overflow: hidden; width: 100%; height: 100%;"><div id="OpenLayers_Map_2_OpenLayers_Container" style="position: absolute; z-index: 749; left: 0px; top: 0px;"><div id="OpenLayers_Layer_OSM_Mapnik_4" dir="ltr" class="olLayerDiv olLayerGrid" style="position: absolute; width: 100%; height: 100%; z-index: 100; display: none;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/4.png" style="visibility: inherit; opacity: 1; position: absolute; left: 66px; top: 79px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/4(1).png" style="visibility: inherit; opacity: 1; position: absolute; left: 322px; top: 79px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/3.png" style="visibility: inherit; opacity: 1; position: absolute; left: 66px; top: -177px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/5.png" style="visibility: inherit; opacity: 1; position: absolute; left: 66px; top: 335px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/4(2).png" style="visibility: inherit; opacity: 1; position: absolute; left: -190px; top: 79px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/3(1).png" style="visibility: inherit; opacity: 1; position: absolute; left: 322px; top: -177px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/5(1).png" style="visibility: inherit; opacity: 1; position: absolute; left: 322px; top: 335px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/3(2).png" style="visibility: inherit; opacity: 1; position: absolute; left: -190px; top: -177px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/5(2).png" style="visibility: inherit; opacity: 1; position: absolute; left: -190px; top: 335px; width: 256px; height: 256px;"></div><div id="OpenLayers_Layer_Markers_14" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 330;"></div><div id="OpenLayers_Layer_Boxes_16" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; display: none; z-index: 335;"><div id="OpenLayersDiv82" style="position: absolute; overflow: hidden; border: 2px solid yellow; left: 233px; top: 1px; width: 26px; height: 350px;"></div><div id="OpenLayersDiv84" style="position: absolute; overflow: hidden; border: 2px solid yellow; left: 188px; top: -3px; width: 157px; height: 356px;"></div></div><div id="OpenLayers_Layer_Boxes_18" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; display: none; z-index: 340;"><div id="OpenLayersDiv101" style="position: absolute; overflow: hidden; border: 2px solid red; left: 189px; top: 1px; width: 154px; height: 350px;"></div></div></div><div id="OpenLayers_Control_PanZoomBar_29" class="olControlPanZoomBar olControlNoSelect" unselectable="on" style="position: absolute; left: 4px; top: 4px; z-index: 1001;"><div id="OpenLayers_Control_PanZoomBar_29_panup" class="olButton" style="position: absolute; left: 13px; top: 4px; width: 18px; height: 18px; cursor: pointer;"><img id="OpenLayers_Control_PanZoomBar_29_panup_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/north-mini.png" style="position: relative; width: 18px; height: 18px;"></div><div id="OpenLayers_Control_PanZoomBar_29_panleft" class="olButton" style="position: absolute; left: 4px; top: 22px; width: 18px; height: 18px; cursor: pointer;"><img id="OpenLayers_Control_PanZoomBar_29_panleft_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/west-mini.png" style="position: relative; width: 18px; height: 18px;"></div><div id="OpenLayers_Control_PanZoomBar_29_panright" class="olButton" style="position: absolute; left: 22px; top: 22px; width: 18px; height: 18px; cursor: pointer;"><img id="OpenLayers_Control_PanZoomBar_29_panright_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/east-mini.png" style="position: relative; width: 18px; height: 18px;"></div><div id="OpenLayers_Control_PanZoomBar_29_pandown" class="olButton" style="position: absolute; left: 13px; top: 40px; width: 18px; height: 18px; cursor: pointer;"><img id="OpenLayers_Control_PanZoomBar_29_pandown_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/south-mini.png" style="position: relative; width: 18px; height: 18px;"></div><div id="OpenLayers_Control_PanZoomBar_29_zoomin" class="olButton" style="position: absolute; left: 13px; top: 63px; width: 18px; height: 18px; cursor: pointer;"><img id="OpenLayers_Control_PanZoomBar_29_zoomin_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/zoom-plus-mini.png" style="position: relative; width: 18px; height: 18px;"></div><div id="OpenLayers_Control_PanZoomBar_ZoombarOpenLayers_Map_2" class="olButton" style="background-image: url(&quot;./openlayers/img/zoombar.png&quot;); left: 13px; top: 81px; width: 18px; height: 198px; position: absolute; cursor: pointer;"></div><div id="OpenLayers_Control_PanZoomBar_29_OpenLayers_Map_2" style="position: absolute; left: 12px; top: 235px; width: 20px; height: 9px; cursor: move;"><img id="OpenLayers_Control_PanZoomBar_29_OpenLayers_Map_2_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/slider.png" style="position: relative; width: 20px; height: 9px;"></div><div id="OpenLayers_Control_PanZoomBar_29_zoomout" class="olButton" style="position: absolute; left: 13px; top: 279px; width: 18px; height: 18px; cursor: pointer;"><img id="OpenLayers_Control_PanZoomBar_29_zoomout_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/zoom-minus-mini.png" style="position: relative; width: 18px; height: 18px;"></div></div><div id="OpenLayers_Control_LayerSwitcher_45" class="olControlLayerSwitcher olControlNoSelect" unselectable="on" style="position: absolute; z-index: 1002; width: 0px; height: 0px;"><div id="OpenLayers_Control_LayerSwitcher_45_layersDiv" class="layersDiv" style="display: none;"><div class="baseLbl">Base Layer</div><div class="baseLayersDiv"><input id="OpenLayers_Control_LayerSwitcher_45_input_111" name="OpenLayers_Control_LayerSwitcher_45_baseLayers" type="radio" value="OpenStreetMap" class="olButton"><label class="labelSpan olButton" style="vertical-align: bottom;">OpenStreetMap</label><br><input id="OpenLayers_Control_LayerSwitcher_45_input_115" name="OpenLayers_Control_LayerSwitcher_45_baseLayers" type="radio" value="Google satellite and streets" checked="" class="olButton"><label class="labelSpan olButton" style="vertical-align: bottom;">Google satellite and streets</label><br><input id="OpenLayers_Control_LayerSwitcher_45_input_116" name="OpenLayers_Control_LayerSwitcher_45_baseLayers" type="radio" value="Google satellite" class="olButton"><label class="labelSpan olButton" style="vertical-align: bottom;">Google satellite</label><br><input id="OpenLayers_Control_LayerSwitcher_45_input_117" name="OpenLayers_Control_LayerSwitcher_45_baseLayers" type="radio" value="Google streets" class="olButton"><label class="labelSpan olButton" style="vertical-align: bottom;">Google streets</label><br><input id="OpenLayers_Control_LayerSwitcher_45_input_118" name="OpenLayers_Control_LayerSwitcher_45_baseLayers" type="radio" value="Google terrain" class="olButton"><label class="labelSpan olButton" style="vertical-align: bottom;">Google terrain</label><br></div><div class="dataLbl">Overlays</div><div class="dataLayersDiv"><input id="OpenLayers_Control_LayerSwitcher_45_input_112" name="Marker" type="checkbox" value="Marker" checked="" class="olButton"><label class="labelSpan olButton" style="vertical-align: baseline;">Marker</label><br><input id="OpenLayers_Control_LayerSwitcher_45_input_113" name="RT 90 Zone" type="checkbox" value="RT 90 Zone" class="olButton"><label class="labelSpan olButton" style="vertical-align: baseline;">RT 90 Zone</label><br><input id="OpenLayers_Control_LayerSwitcher_45_input_114" name="SWEREF 99 Zone" type="checkbox" value="SWEREF 99 Zone" class="olButton"><label class="labelSpan olButton" style="vertical-align: baseline;">SWEREF 99 Zone</label><br></div></div><div id="OpenLayers_Control_MaximizeDiv" class="maximizeDiv olButton" style="position: absolute;"><img id="OpenLayers_Control_MaximizeDiv_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/layer-switcher-maximize.png" style="position: relative;"></div><div id="OpenLayers_Control_MinimizeDiv" class="minimizeDiv olButton" style="position: absolute; display: none;"><img id="OpenLayers_Control_MinimizeDiv_innerImage" class="olAlphaImg" src="./latlong.mellifica.se - Konvertering SWEREF99_RT90_WGS84_files/layer-switcher-minimize.png" style="position: relative;"></div></div><div id="OpenLayers_Control_ScaleLine_54" class="olControlScaleLine olControlNoSelect" unselectable="on" style="position: absolute; z-index: 1003;"><div class="olControlScaleLineTop" style="visibility: visible; width: 51px;">500 km</div><div class="olControlScaleLineBottom" style="visibility: visible; width: 82px;">500 mi</div></div><div id="OpenLayers_Control_MousePosition_55" class="olControlMousePosition olControlNoSelect" unselectable="on" style="position: absolute; z-index: 1004;">Long: 35.7326 Lat: 67.4183</div><div id="OpenLayers_Layer_Google_6" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 120; display: block;"></div><div id="OpenLayers_Layer_Google_6_EventPane" style="position: absolute; z-index: 121; width: 100%; height: 100%; display: block;"></div><div id="OpenLayers_Layer_Google_8" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 125; display: none;"></div><div id="OpenLayers_Layer_Google_8_EventPane" style="position: absolute; z-index: 126; width: 100%; height: 100%; display: none;"></div><div id="OpenLayers_Layer_Google_10" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 130; display: none;"></div><div id="OpenLayers_Layer_Google_10_EventPane" style="position: absolute; z-index: 131; width: 100%; height: 100%; display: none;"></div><div id="OpenLayers_Layer_Google_12" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 135; display: none;"></div><div id="OpenLayers_Layer_Google_12_EventPane" style="position: absolute; z-index: 136; width: 100%; height: 100%; display: none;"></div></div></div>
+	
+	<div id="map_info" style="display: none;" align="left">
+	<p>Klicka p� kartan f�r att se en positions koordinater uttrycka i
+	lat/long, RT 90 och SWEREF 99. Centrering sker automatiskt.
+	</p>
+	<p>Navigering och zoom g�rs med verktygen till v�nster men det g�r
+	�ven att navigera i miniatyrf�nstret till h�ger.
+	<b>OBS</b>: Vissa webbl�sare (till exempel Internet Explorer) tolkar ett klick
+	i zoom-listen som ett klick p� kartan. Anv�nd "+", "-" eller flytta 
+	zoom-mark�ren ist�llet ifall detta problem uppst�r. 
+	</p>
+	<p>F�r att byta kartskikt och f�r att visa l�mpliga zoner f�r valda
+	projektioner klickar man p� "+"-tecknet uppe till h�ger.
+	</p>
+	<p>Projektionen p� denna karta �r Mercator d�r projektionen sker mot 
+	en cylinder som tangerar ekvatorn. Detta passar bra f�r exempelvis 
+	v�rldskartor. Sverige blir dock lite knubbigare �n vi �r vana vid.<br>
+	RT 90 och SWEREF 99 projicerar mot en n�got tillplattad cylinder som 
+	tangerar en viss angiven meridian, en s� kallad 
+	transversal Mercator-projektion. Cylindern �r allts� vriden 90 grader 
+	j�mf�rt med en vanlig Mercator. 
+	Detta �r ett synnerligen l�mpligt val f�r kartor om man bor i 
+	ett avl�ngt land p� relativt h�g bredgrad.
+	</p>
+	<p><b>�ndring juli 2010:</b> NASA:s satellitkarta har slutat fungera och �r 
+	nu ersatt med flera alternativa kartskikt fr�n Google.
+	</p>	
+	<p><b>�ndring oktober 2013:</b> Googles karttj�nst version 2 �r ersatt av version 3. 
+	</p>	
+	<p><b>�ndring januari 2016:</b> Efter l�ng tid med kartstrul med Googles kartskikt 
+	�r nu OpenStreetMap inlagd som f�rsta skikt, vilket verkar ha l�st problemet. 
+	Googlekartorna kan aktiveras om man klickar p� "+"-tecknet till h�ger p� kartan.
+	</p>	
+	</div>
+	
+	</fieldset>
+	</div>
+	
+	<div id="contact" align="right">� OpenStreetMaps bidragsgivare&nbsp;&nbsp;&nbsp;
+	</div>
 
-        #submit-btn:hover, #respond-btn:hover {
-            background-color: #990000;
-        }
+	<div id="about_info" style="display: none;" align="left">
+	<p>Direktl�nkar:
+	<br>
+	Det g�r att ha direktl�nkar till en position p� sidan.<br> 
+	Exempel: 
+	<a href="https://latlong.mellifica.se/?latlong=59.326617,18.071697" target="_blank">H�r bor kungen</a>.
+	Alternativa format �r:<br>
+	-&nbsp;https://latlong.mellifica.se/?latlong=59.326617,18.071697<br>
+	-&nbsp;https://latlong.mellifica.se/?rt90=6580615.864,1629018.925<br>
+	-&nbsp;https://latlong.mellifica.se/?sweref99tm=6580452.57,674761.753<br>
+	</p>
 
-        #no-btn {
-            background-color: #f5a10f;
-            color: #fff;
-        }
+	<p>Allm�nt om webbsidan:
+	<br>
+	Sverige har l�mnat RT 90 och g�tt �ver till SWEREF 99 som referenssystem f�r 
+	geografiska positioner och som grund f�r kartprojektioner. P� EU-niv� har 
+	INSPIRE-direktivet antagits vilket inneb�r att geografiskt kopplad information
+	ska g�ras tillg�nglig f�r medborgare och myndigheter. Detta g�r att behovet 
+	av konverteringar mellan de olika referenssystemen kommer att �ka. Syftet med 
+	denna sida �r att p� ett smidigt s�tt hj�lpa till med dessa konverteringar.
+	</p>
+	<p>Alla formler och parametrar �r h�mtade fr�n
+	Lantm�teriets webbsidor: <a href="https://www.lantmateriet.se/geodesi" target="_blank"> https://www.lantmateriet.se/geodesi</a>.</p>
+	<p><b>�ndring oktober 2013:</b> Licensen f�r bakomliggande JavaScript �r 
+	�ndrad till MIT. (Ber�kningsalgoritmen har konverterats till ett antal  
+	programmeringsspr�k och de som fr�gat har f�tt min till�telse att sl�ppa sin
+	kod under MIT-licensen. D� kan det vara smidigt att anv�nda samma licens 
+	�ven h�r.) 
+	</p>	
+	<p><b>�ndring november 2017:</b> F�r att fira att sidan varit i drift i 10 �r 
+	s� passar jag p� att l�gga in en l�nk till en extern sida f�r att konvertera
+	positioner i tabellformat. N�got som varit efterfr�gat l�nge men jag har inte 
+	orkat fixa det sj�lv. 
+	Statistiken f�r de senaste 5 �ren visar att det ofta �r �ver 2000 sessioner 
+	per m�nad f�rdelat p� �ver 1000 bes�kare per m�nad. 
+	Kul att sidan anv�nds.
+	</p>	
+	<p><b>�ndring juli 2019:</b> Hade missat att ge cred till OpenStreetMap n�r jag 
+	gjorde bytet till OSM som f�rstaval p� kartan (tack Egil f�r p�pekandet). <br>
+	Vill �ven passa p� att tipsa om att all kod f�r sidan finns p� GitHub 
+	(https://github.com/arnoldandreasson/latlong_mellifica_se) 
+	om n�gon vill ladda ner och vidareutveckla sidan. Allt �r under MIT-licensen s� 
+	det �r bara att byta till det egna namnet i copyrightraden, s� l�nge du inte 
+	tar bort MIT-licensen s� klart. Koda lugnt...
+	</p>	
+	</div>
+	
+	<div id="contact"><br>Arnold Andreasson, 2007-2019.<br>
+	info@mellifica.se
+	</div>	
+</div>
 
-        #no-btn:hover {
-            background-color: #e78611;
-            transform: scale(1.05);
-        }
 
-        #yes-btn {
-            background-color: #4CAF50;
-            color: #fff;
-        }
-
-        #yes-btn:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-
-        @media (min-width: 1024px) {
-            body {
-                background-size: 75%;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            body {
-                background-size: 50%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="wrapper">
-        <h1>Will You Be Kiens Valentine?</h1>
-        <p id="valentine-message">Kärra besökare</p>
-        <p id="valentine-message">Du har säkerligen kommit hit för att du är åtminstone lite intresserad i mig.</p>
-        <p id="valentine-message">Sök inte vidare, du har kommit rätt 😉.</p>
-        
-        <div id="input-box">
-            <label for="message">Pros n cons:</label>
-            <label for="message">.</label>
-            <label for="message">pro: Kan tillaga ditt husdjur om den blir jobbig.</label>
-            <label for="message">pro: Du kommer bli högst upp på min "att svara" listan.</label>
-            <label for="message">pro: Ställbart humornivå. Allt från "dry af" till "mörk humor".</label>
-            <label for="message">pro: Du kommer vara den snyggare på dejten.</label>
-            <label for="message">.</label>
-            <label for="message">cons: refererar detta till mina kompisar för dem vet mer</label>
-            <br>
-            
-        </div>
-    
-        <div id="response-form">
-            <label for="response-input">Vill du bli min Valentine??</label>
-            <br>
-        </div>
-    
-        <button id="no-btn" onclick="handleNoButtonClick()">Nej</button>
-        <button id="yes-btn" onclick="handleYesButtonClick()">Ja</button>
-    </div>
-
-    <script>
-        function submitMessage() {
-            var message = document.getElementById('message').value;
-            var confirmation = confirm("Are you sure you want to ask this message to your boyfriend?\n\n" + message);
-
-            if (confirmation) {
-                alert("Message sent! 🌹");
-                document.getElementById('response-form').style.display = 'block';
-            }
-        }
-
-        function respondToProposal() {
-            var response = document.getElementById('response-input').value;
-            alert("Your response: " + response);
-        }
-
-        var noButtonClickCount = 0;
-
-        function handleNoButtonClick() {
-            var noBtn = document.getElementById('no-btn');
-            var messages = ["Snälla? 🥺", "Kom igen det kommer att bli kul", "You're breaking my heart"];
-            noButtonClickCount = (noButtonClickCount + 1) % messages.length;
-            noBtn.innerText = messages[noButtonClickCount];
-
-            var yesBtn = document.getElementById('yes-btn');
-            yesBtn.style.width = (100 + noButtonClickCount * 10) + 'px';
-        }
-
-        function handleYesButtonClick() {
-            alert("Du sa ja!! 😍");
-        }
-    </script>
-
-</body>
-</html>
+</body></html>
