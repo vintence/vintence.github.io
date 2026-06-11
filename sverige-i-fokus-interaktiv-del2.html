@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sverige i Fokus - Interaktiv</title>
+    <style>
+        :root {
+            --primary: #5c2d91;
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --sidebar-width: 300px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            line-height: 1.6;
+        }
+
+        #sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: white;
+            border-right: 2px solid #ccc;
+            position: fixed;
+            left: -300px;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        #sidebar.open {
+            left: 0;
+        }
+
+        #toggle-sidebar {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 1001;
+            padding: 10px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .sidebar-btn {
+            margin: 10px 0;
+            padding: 10px;
+            background: #eee;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .sidebar-btn:hover { background: #ddd; }
+
+        #dynamic-status {
+            margin-top: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        #content {
+            margin-left: 0;
+            padding: 80px 40px 40px 40px;
+            max-width: 800px;
+            width: 100%;
+            transition: margin-left 0.3s ease;
+            margin: 0 auto;
+        }
+
+        body.sidebar-open #content {
+            margin-left: calc(var(--sidebar-width) + auto);
+        }
+
+        .cover-image {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto 60px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        .chapter {
+            margin-bottom: 80px;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+
+        ul.toc-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul.toc-list li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        ul.toc-list li a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+        }
+
+        .sentence {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .sentence:hover {
+            background-color: #e0d4f5;
+        }
+
+        #translation-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .lang-vi .sv-text { display: none; }
+        .lang-vi .vi-text { display: inline; }
+        .lang-sv .vi-text { display: none; }
+        .lang-sv .sv-text { display: inline; }
+    </style>
+</head>
+<body class="lang-sv">
+
+    <button id="toggle-sidebar">☰ Meny</button>
+
+    <div id="sidebar">
+        <h2>Verktyg</h2>
+        <div id="dynamic-status">Laddar...</div>
+        <hr>
+        <button class="sidebar-btn" onclick="document.getElementById('toc').scrollIntoView({behavior: 'smooth'})">📖 Innehållsförteckning</button>
+        <button class="sidebar-btn" id="btn-back">↩ Gå tillbaka</button>
+        <button class="sidebar-btn" id="btn-lang">🌐 Byt språk (SV/VI)</button>
+    </div>
+
+    <div id="translation-popup">Översättning visas här...</div>
+
+    <div id="content">
+        
+        <!-- Omslagsbild -->
+        <img src="image_dbb6c1.jpg" alt="Sverige i Fokus Omslag" class="cover-image" id="cover">
+
+        <!-- Innehållsförteckning -->
+        <div id="toc" class="chapter" data-page="2" data-title="Innehållsförteckning">
+            <h1 class="sentence" data-vi="Mục lục">Innehållsförteckning</h1>
+            <ul class="toc-list">
+                <li><a href="#intro" class="sentence" data-vi="Lời mở đầu">Inledning</a></li>
+                <li><a href="#chap1" class="sentence" data-vi="Đất nước Thụy Điển">Landet Sverige</a></li>
+                <li><a href="#chap1-1" class="sentence" data-vi="&nbsp;&nbsp;&nbsp;Địa lý, khí hậu và thiên nhiên">&nbsp;&nbsp;&nbsp;Geografi, klimat och natur</a></li>
+                <li><a href="#chap1-2" class="sentence" data-vi="&nbsp;&nbsp;&nbsp;Sự phân chia của Thụy Điển">&nbsp;&nbsp;&nbsp;Sveriges indelning</a></li>
+                <li><a href="#chap1-3" class="sentence" data-vi="&nbsp;&nbsp;&nbsp;Dân số">&nbsp;&nbsp;&nbsp;Befolkning</a></li>
+                <li><a href="#chap1-4" class="sentence" data-vi="&nbsp;&nbsp;&nbsp;Tài nguyên thiên nhiên">&nbsp;&nbsp;&nbsp;Tài nguyên thiên nhiên</a></li>
+                <li><a href="#chap1-5" class="sentence" data-vi="&nbsp;&nbsp;&nbsp;Biến đổi khí hậu">&nbsp;&nbsp;&nbsp;Biến đổi khí hậu</a></li>
+                <li><a href="#chap2" class="sentence" data-vi="Hệ thống dân chủ của Thụy Điển">Sveriges demokratiska system</a></li>
+            </ul>
+        </div>
+
+        <!-- Inledning -->
+        <div id="intro" class="chapter" data-page="4" data-title="Inledning">
+            <h1 class="sentence" data-vi="Lời mở đầu">Inledning</h1>
+            <p>
+                <span class="sentence sv-text" data-vi="Sverige i fokus (Thụy Điển trong tâm điểm) là tài liệu học tập dành cho những ai chuẩn bị thi kỳ thi quốc tịch để chứng minh kiến thức cơ bản về xã hội Thụy Điển.">Sverige i fokus är ett utbildningsmaterial som riktar sig till dig som ska göra medborgarskapsprovet för att visa grundläggande kunskaper om det svenska samhället.</span>
+                <span class="sentence vi-text" data-sv="Sverige i fokus är ett utbildningsmaterial som riktar sig till dig som ska göra medborgarskapsprovet för att visa grundläggande kunskaper om det svenska samhället.">Sverige i fokus (Thụy Điển trong tâm điểm) là tài liệu học tập dành cho những ai chuẩn bị thi kỳ thi quốc tịch để chứng minh kiến thức cơ bản về xã hội Thụy Điển.</span>
+            </p>
+            <p>
+                <span class="sentence sv-text" data-vi="Nội dung do Hội đồng Đại học và Cao đẳng (UHR) phối hợp cùng Cục Nhà trường (Skolverket) biên soạn theo ủy thác của chính phủ.">Innehållet är framtaget av Universitets- och högskolerådet tillsammans med Skolverket på uppdrag av regeringen.</span>
+                <span class="sentence vi-text" data-sv="Innehållet är framtaget av Universitets- och högskolerådet tillsammans med Skolverket på uppdrag av regeringen.">Nội dung do Hội đồng Đại học và Cao đẳng (UHR) phối hợp cùng Cục Nhà trường (Skolverket) biên soạn theo ủy thác của chính phủ.</span>
+            </p>
+            <p>
+                <span class="sentence sv-text" data-vi="Bài kiểm tra sẽ dựa trên tài liệu này. Thông tin chi tiết có tại uhr.se/utbildningsmaterial">Provet kommer att baseras på det här materialet. Mer information finns på uhr.se/utbildningsmaterial</span>
+                <span class="sentence vi-text" data-sv="Provet kommer att baseras på det här materialet. Mer information finns på uhr.se/utbildningsmaterial">Bài kiểm tra sẽ dựa trên tài liệu này. Thông tin chi tiết có tại uhr.se/utbildningsmaterial</span>
+            </p>
+            <p style="font-size: 0.85em; color: #666; line-height: 1.4;">
+                <span class="sentence sv-text" data-vi="Xuất bản bởi Hội đồng Đại học và Cao đẳng, năm 2026, ấn bản thứ 1. Sản xuất: Cục Nhà trường (Skolverket).">Utgivet av Universitets- och högskolerådet, 2026, 1:a upplagan. Produktion: Skolverket.</span>
+                <span class="sentence vi-text" data-sv="Utgivet av Universitets- och högskolerådet, 2026, 1:a upplagan. Produktion: Skolverket.">Xuất bản bởi Hội đồng Đại học và Cao đẳng, năm 2026, ấn bản thứ 1. Sản xuất: Cục Nhà trường (Skolverket).</span>
+            </p>
+        </div>
+
+        <!-- Kapitel 1 -->
+        <div id="chap1" class="chapter" data-page="5" data-title="Landet Sverige">
+            <h1 class="sentence" data-vi="Đất nước Thụy Điển">Landet Sverige</h1>
+            
+            <p>
+                <span class="sentence sv-text" data-vi="Chương này nói về địa lý, khí hậu và thiên nhiên của Thụy Điển.">Kapitlet handlar om Sveriges geografi, klimat och natur.</span>
+                <span class="sentence vi-text" data-sv="Kapitlet handlar om Sveriges geografi, klimat och natur.">Chương này nói về địa lý, khí hậu và thiên nhiên của Thụy Điển.</span>
+                
+                <span class="sentence sv-text" data-vi="Nó cũng đề cập đến một số tài nguyên thiên nhiên quan trọng và cách Thụy Điển nỗ lực đối phó với biến đổi khí hậu.">Det handlar också om några vigtiga naturresurser och om hur Sverige arbetar för att hantera klimatförändringarna.</span>
+                <span class="sentence vi-text" data-sv="Det handlar också om några vigtiga naturresurser och om hur Sverige arbetar för att hantera klimatförändringarna.">Nó cũng đề cập đến một số tài nguyên thiên nhiên quan trọng và cách Thụy Điển nỗ lực đối phó với biến đổi khí hậu.</span>
+            </p>
+
+            <h2 id="chap1-1" class="sentence" data-vi="Địa lý, khí hậu và thiên nhiên">Geografi, klimat och natur</h2>
+            
+            <p>
+                <span class="sentence sv-text" data-vi="Thụy Điển nằm ở khu vực Bắc Âu thuộc miền bắc Châu Âu.">Sverige ligger i Norden i norra Europa.</span>
+                <span class="sentence vi-text" data-sv="Sverige ligger i Norden i norra Europa.">Thụy Điển nằm ở khu vực Bắc Âu thuộc miền bắc Châu Âu.</span>
+                
+                <span class="sentence sv-text" data-vi="Phần cực bắc của đất nước nằm ở phía bắc của Vòng Bắc Cực, trong vùng Bắc Cực.">Den nordligaste delen av landet ligger norr om polcirkeln, i det arktiska området.</span>
+                <span class="sentence vi-text" data-sv="Den nordligaste delen av landet ligger norr om polcirkeln, i det arktiska området.">Phần cực bắc của đất nước nằm ở phía bắc của Vòng Bắc Cực, trong vùng Bắc Cực.</span>
+            </p>
+            <p>
+                <span class="sentence sv-text" data-vi="Thụy Điển là một quốc gia thon dài, trải dài khoảng 1.600 km từ điểm cực bắc, Treriksröset, đến điểm cực nam, Smygehuk.">Sverige är ett avlångt land som sträcker sig cirka 1 600 kilometer från den nordligaste punkten, Treriksröset, till den sydligaste punkten, Smygehuk.</span>
+                <span class="sentence vi-text" data-sv="Sverige är ett avlångt land som sträcker sig cirka 1 600 kilometer från den nordligaste punkten, Treriksröset, till den sydligaste punkten, Smygehuk.">Thụy Điển là một quốc gia thon dài, trải dài khoảng 1.600 km từ điểm cực bắc, Treriksröset, đến điểm cực nam, Smygehuk.</span>
+                
+                <span class="sentence sv-text" data-vi="Thụy Điển có một bờ biển dài.">Sverige har en lång kust.</span>
+                <span class="sentence vi-text" data-sv="Sverige har en lång kust.">Thụy Điển có một bờ biển dài.</span>
+                
+                <span class="sentence sv-text" data-vi="Vùng biển ở bờ biển phía đông được gọi là Biển Baltic (Östersjön).">Havet vid den östra kusten heter Östersjön.</span>
+                <span class="sentence vi-text" data-sv="Havet vid den östra kusten heter Östersjön.">Vùng biển ở bờ biển phía đông được gọi là Biển Baltic (Östersjön).</span>
+            </p>
+            <p>
+                <span class="sentence sv-text" data-vi="Nơi đó cũng có hai hòn đảo lớn nhất của Thụy Điển là Gotland và Öland.">Där ligger också Sveriges två største öar, Gotland och Öland.</span>
+                <span class="sentence vi-text" data-sv="Där ligger också Sveriges två største öar, Gotland och Öland.">Nơi đó cũng có hai hòn đảo lớn nhất của Thụy Điển là Gotland và Öland.</span>
+                
+                <span class="sentence sv-text" data-vi="Các vùng biển ở bờ biển phía tây được gọi là Skagerrak và Kattegatt.">Haven vid den västra kusten heter Skagerrak och Kattegatt.</span>
+                <span class="sentence vi-text" data-sv="Haven vid den västra kusten heter Skagerrak och Kattegatt.">Các vùng biển ở bờ biển phía tây được gọi là Skagerrak và Kattegatt.</span>
+            </p>
+            <p>
+                <span class="sentence sv-text" data-vi="Mặc dù nằm ở vị trí phía bắc, Thụy Điển có khí hậu ôn hòa so với nhiều khu vực khác ở cùng vĩ độ.">Trots sitt nordliga läge har Sverige ett milt klimat jämfört med många andra områden på samma breddgrad.</span>
+                <span class="sentence vi-text" data-sv="Trots sitt nordliga läge har Sverige ett milt klimat jämfört med många andra områden på samma breddgrad.">Mặc dù nằm ở vị trí phía bắc, Thụy Điển có khí hậu ôn hòa so với nhiều khu vực khác ở cùng vĩ độ.</span>
+                
+                <span class="sentence sv-text" data-vi="Điều này là do Dòng hải lưu Gulf Stream và Dòng hải lưu Bắc Đại Tây Dương vận chuyển nước ấm từ Vịnh Mexico qua Đại Tây Dương tới Châu Âu.">Det beror på att Golfströmmen och den Nordatlantiska strömmen transporterar varmt vatten från Mexikanska golfen över Atlanten mot Europa.</span>
+                <span class="sentence vi-text" data-sv="Det beror på att Golfströmmen och den Nordatlantiska strömmen transporterar varmt vatten från Mexikanska golfen över Atlanten mot Europa.">Điều này là do Dòng hải lưu Gulf Stream và Dòng hải lưu Bắc Đại Tây Dương vận chuyển nước ấm từ Vịnh Mexico qua Đại Tây Dương tới Châu Âu.</span>
+                
+                <span class="sentence sv-text" data-vi="Nước biển làm ấm không khí và gió sau đó mang không khí ôn hòa và ẩm ướt hơn vào Thụy Điển.">Havsvattnet värmer upp luften och vindarna för sedan in den mildare och fuktigare luften över Sverige.</span>
+                <span class="sentence vi-text" data-sv="Havsvattnet värmer upp luften och vindarna för sedan in den mildare och fuktigare luften över Sverige.">Nước biển làm ấm không khí và gió sau đó mang không khí ôn hòa và ẩm ướt hơn vào Thụy Điển.</span>
+            </p>
+
+            <h2 class="sentence" data-vi="Thiên nhiên Thụy Điển">Sveriges natur</h2>
+            <p>
+                <span class="sentence sv-text" data-vi="Khoảng 10.000 năm trước, Thụy Điển bị bao phủ bởi lớp băng dày vài km.">För ungefär 10 000 år sedan var Sverige täckt av flera kilometer tjock is.</span>
+                <span class="sentence vi-text" data-sv="För ungefär 10 000 år sedan var Sverige täckt av several kilometer tjock is.">Khoảng 10.000 năm trước, Thụy Điển bị bao phủ bởi lớp băng dày vài km.</span>
+                
+                <span class="sentence sv-text" data-vi="Thời kỳ này được gọi là kỷ băng hà.">Den här perioden kallas för istiden.</span>
+                <span class="sentence vi-text" data-sv="Den här perioden kallas för istiden.">Thời kỳ này được gọi là kỷ băng hà.</span>
+            </p>
+            <p>
+                <span class="sentence sv-text" data-vi="Khi băng dần tan đi, nó đã định hình cảnh quan và để lại những dấu vết rõ ràng, ví dụ như nhiều hồ nước, quần đảo với hàng ngàn hòn đảo và những đồng bằng có đất có thể canh tác.">När isen så småningom smälte bort hade den format landskapet och lämnat tydliga spår efter sig, till exempel många sjöar, skärgårdar med tusentals öar och slätter med jord som går att odla.</span>
+                <span class="sentence vi-text" data-sv="När isen så småningom smälte bort hade den format landskapet och lämnat tydliga spår efter sig, till exempel många sjöar, skärgårdar med tusentals öar och slätter med jord som går att odla.">Khi băng dần tan đi, nó đã định hình cảnh quan và để lại những dấu vết rõ ràng, ví dụ như nhiều hồ nước, quần đảo với hàng ngàn hòn đảo và những đồng bằng có đất có thể canh tác.</span>
+                
+                <span class="sentence sv-text" data-vi="Băng cũng đã ảnh hưởng đến hình dáng của các dãy núi ngày nay.">Isen har också påverkat hur fjällen ser ut i dag.</span>
+                <span class="sentence vi-text" data-sv="Isen har också påverkat hur fjällen ser ut i dag.">Băng cũng đã ảnh hưởng đến hình dáng của các dãy núi ngày nay.</span>
+            </p>
+
+            <h2 class="sentence" data-vi="Dãy núi">Fjäll</h2>
+            <p>
+                <span class="sentence sv-text" data-vi="Dãy núi Skanderna nằm dọc theo biên giới với Na Uy và được gọi là dãy núi (fjällen).">Bergskedjan Skanderna ligger längs gränsen mot Norge och kallas för fjällen.</span>
+                <span class="sentence vi-text" data-sv="Bergskedjan Skanderna ligger längs gränsen mot Norge och kallas för fjällen.">Dãy núi Skanderna nằm dọc theo biên giới với Na Uy và được gọi là dãy núi (fjällen).</span>
+                
+                <span class="sentence sv-text" data-vi="Ở đó, khí hậu quá lạnh và nhiều gió để cây cối có thể mọc được.">Där är klimatet för kallt och blåsigt för att träd ska kunna växa.</span>
+                <span class="sentence vi-text" data-sv="Där är klimatet för kallt och blåsigt för att träd ska kunna växa.">Ở đó, khí hậu quá lạnh và nhiều gió để cây cối có thể mọc được.</span>
+                
+                <span class="sentence sv-text" data-vi="Cảnh quan mở và chủ yếu bao gồm đá, cỏ và các loài thực vật thấp.">Landskapet är öppet och består mest av sten, gräs och låga växter.</span>
+                <span class="sentence vi-text" data-sv="Landskapet är öppet och består mest av sten, gräs och låga växter.">Cảnh quan mở và chủ yếu bao gồm đá, cỏ và các loài thực vật thấp.</span>
+                
+                <span class="sentence sv-text" data-vi="Nơi đó có ngọn núi cao nhất của Thụy Điển, Kebnekaise, cao khoảng 2.000 mét.">Där finns Sveriges högsta berg Kebnekaise som är cirka 2 000 meter högt.</span>
+                <span class="sentence vi-text" data-sv="Där finns Sveriges högsta berg Kebnekaise som är cirka 2 000 meter högt.">Nơi đó có ngọn núi cao nhất của Thụy Điển, Kebnekaise, cao khoảng 2.000 mét.</span>
+            </p>
+
+        </div>
+
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-sidebar');
+        const body = document.body;
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            body.classList.toggle('sidebar-open');
+        });
+
+        window.addEventListener('scroll', () => {
+            if(sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                body.classList.remove('sidebar-open');
+            }
+        });
+
+        let scrollHistory = [];
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                scrollHistory.push(window.scrollY); 
+            });
+        });
+
+        document.getElementById('btn-back').addEventListener('click', () => {
+            if (scrollHistory.length > 0) {
+                const prevPosition = scrollHistory.pop();
+                window.scrollTo({ top: prevPosition, behavior: 'smooth' });
+            } else {
+                alert("Du har inte hoppat till något kapitel än.");
+            }
+        });
+
+        const btnLang = document.getElementById('btn-lang');
+        btnLang.addEventListener('click', () => {
+            if (body.classList.contains('lang-sv')) {
+                body.classList.replace('lang-sv', 'lang-vi');
+            } else {
+                body.classList.replace('lang-vi', 'lang-sv');
+            }
+        });
+
+        const popup = document.getElementById('translation-popup');
+        let popupTimeout;
+
+        document.querySelectorAll('.sentence').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                e.stopPropagation(); 
+                
+                const currentLang = body.classList.contains('lang-sv') ? 'sv' : 'vi';
+                
+                let translationText = "";
+                if (currentLang === 'sv') {
+                    translationText = el.getAttribute('data-vi');
+                } else {
+                    translationText = el.getAttribute('data-sv') || el.getAttribute('data-vi');
+                }
+
+                if(translationText) {
+                    popup.textContent = translationText;
+                    popup.style.display = 'block';
+                    
+                    clearTimeout(popupTimeout);
+                    popupTimeout = setTimeout(() => {
+                        popup.style.display = 'none';
+                    }, 5000); 
+                }
+                
+                if (el.tagName === 'A') {
+                    const targetId = el.getAttribute('href');
+                    if (targetId && targetId.startsWith('#')) {
+                        const targetEl = document.querySelector(targetId);
+                        if (targetEl) {
+                            scrollHistory.push(window.scrollY);
+                            targetEl.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        const dynamicStatus = document.getElementById('dynamic-status');
+        const chapters = document.querySelectorAll('.chapter');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const page = entry.target.getAttribute('data-page') || '1';
+                    const title = entry.target.getAttribute('data-title') || 'Omslag';
+                    dynamicStatus.textContent = `[ Sid ${page} ] ${title}`;
+                }
+            });
+        }, { rootMargin: "-10% 0px -80% 0px" });
+
+        chapters.forEach(chapter => observer.observe(chapter));
+        
+        const cover = document.getElementById('cover');
+        if(cover) {
+            const coverObserver = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    dynamicStatus.textContent = `[ Sid 1 ] Omslag`;
+                }
+            }, { rootMargin: "-10% 0px -80% 0px" });
+            coverObserver.observe(cover);
+        }
+
+    </script>
+</body>
+</html>
